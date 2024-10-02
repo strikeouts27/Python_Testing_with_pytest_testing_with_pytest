@@ -1,0 +1,15 @@
+cards @ file:///C:/Users/strib/Programming/code/cards_proj
+click==7.1.2   
+colorama==0.4.6
+commonmark==0.9.1
+iniconfig==2.0.0
+markdown-it-py==3.0.0
+mdurl==0.1.2
+packaging==24.1
+pluggy==1.5.0
+Pygments==2.18.0
+pytest==8.3.3
+rich==10.7.0
+tinydb==4.5.1
+typer==0.3.2
+typing_extensions==4.12.2

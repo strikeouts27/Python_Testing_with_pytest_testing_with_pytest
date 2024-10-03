@@ -1,7 +1,47 @@
 """Demonstrate simple fixtures."""
+# NEXT SESSION DETERMINE AMOUNTS OF THE RANKINGS VIA PRINTING THE RETURN VALUES OF THE FUNCTION 
+# AND THAN MOVE ON TO THE OTHER PARTS OF THE EXERCISE. 
 
 import pytest
 
+# CODE PROVIDED BY BRIAN THAT I COMMENTED OUT BECAUSE THE BOOK SAID I NEEDED TO MAKE A FILE OF THE SAME NAME AND WRITE MY OWN FUNCTIONS. 
+
+@pytest.fixture()
+def some_data():
+    """Return answer to ultimate question."""
+    return 42
+def test_some_data(some_data):
+    """Use fixture return value in a test."""
+    assert some_data == 42
+
+
+
+
+@pytest.fixture()
+def some_other_data():
+    """Raise an exception from fixture."""
+    x = 43
+    assert x == 42
+    return x
+
+
+def test_other_data(some_other_data):
+    """Try to use failing fixture."""
+    assert some_other_data == 42
+
+
+
+@pytest.fixture()
+def a_tuple():
+    """Return something more interesting."""
+    return (1, "foo", None, {"bar": 23})
+
+
+def test_a_tuple(a_tuple):
+    """Demo the a_tuple fixture."""
+    assert a_tuple[3]["bar"] == 32
+
+# strikeouts27 Tests 
 # I want this fixture to be able to convert data into a dictionary.
 @pytest.fixture()
 def setup_dictionary_converter():
@@ -112,63 +152,41 @@ def test_total_roster_rankings(setup_dictionary_converter):
             ("Nelson Cruz", 80), 
         )
     
-    texas_rangers_starting_lineup_total_team_rankings_dictionary = {player: ranking for player, ranking in texas_rangers_reserves_lineup_rankings}
-    texas_rangers_reserves_lineup_total_team_rankings = {player: ranking for player, ranking in texas_rangers_reserves_lineup_rankings}
-    
-
+    texas_rangers_reserves_lineup_total_team_rankings_dictionary = {player: ranking for player, ranking in texas_rangers_reserves_lineup_rankings}
     texas_rangers_reserves_score= 0
-    for ranking in texas_rangers_reserves_lineup_total_team_rankings.values():
+    for ranking in texas_rangers_reserves_lineup_total_team_rankings_dictionary.values():
         texas_rangers_reserves_score += ranking
     print(f" The total rank for the texas rangers reserves is {texas_rangers_reserves_score}")
 
+
     assert texas_rangers_starters_score > texas_rangers_reserves_score
-    return texas_rangers_starters_score, texas_rangers_starters_score 
+    
 
-
-
-        # using dictionary comphrension python iterates over the first and second items of the tuple assigning them as player and rankings. 
     
 if __name__ == "__main__":
     result = test_dictionary_converter(setup_dictionary_converter)
     pytest.main()
 
+# Fixtures are often one of the trickier parts of pytest for people to get used to.
+# Going through the following exercises will
+# • help solidify your understanding of how fixtures work,
+# • allow you to use different fixture scopes, and
+# • internalize the run sequence with the visual output of --setup-show.
+# 1. Create a test file called test_fixtures.py.
+# 2. Write a few data fixtures—functions with the @pytest.fixture() decorator—that
+# return some data (perhaps a list, dictionary, or tuple).
+# 3. For each fixture, write at least one test function that uses it.
+# 4. Write two tests that use the same fixture.
+# 5. Run pytest --setup-show test_fixtures.py. Are all the fixtures run before every test?
+# 6. Add scope='module' to the fixture from Exercise 4.
+# 7. Re-run pytest --setup-show test_fixtures.py. What changed?
+# 8. For the fixture from Exercise 6, change return <data> to yield <data>.
+# 9. Add print statements before and after the yield.
+# 10. Run pytest -s -v test_fixtures.py. Does the output make sense?
+# 11. Run pytest --fixtures. Can you see your fixtures listed?
+# 12. Add a docstring to one of your fixtures, if you didn’t include them already.
+# Re-run pytest --fixtures to see the description show up.
     
-# CODE PROVIDED BY BRIAN THAT I COMMENTED OUT BECAUSE THE BOOK SAID I NEEDED TO MAKE A FILE OF THE SAME NAME AND WRITE MY OWN FUNCTIONS. 
 
-# @pytest.fixture()
-# def some_data():
-#     """Return answer to ultimate question."""
-#     return 42
-# def test_some_data(some_data):
-#     """Use fixture return value in a test."""
-#     assert some_data == 42
-
-
-
-
-# @pytest.fixture()
-# def some_other_data():
-#     """Raise an exception from fixture."""
-#     x = 43
-#     assert x == 42
-#     return x
-
-
-# def test_other_data(some_other_data):
-#     """Try to use failing fixture."""
-#     assert some_other_data == 42
-
-
-
-
-# @pytest.fixture()
-# def a_tuple():
-#     """Return something more interesting."""
-#     return (1, "foo", None, {"bar": 23})
-
-
-# def test_a_tuple(a_tuple):
-#     """Demo the a_tuple fixture."""
-#     assert a_tuple[3]["bar"] == 32
 
 
